@@ -14,17 +14,17 @@ import java.util.concurrent.*;
 /**
  * ***********************************************************
  *
- * @类名 ：TaskExcecutionParser.java
+ * @类名 ：TaskExecutionParser.java
  * @DESCRIPTION :
  * @AUTHOR : wangzhongfu
  * @DATE : 2016/10/2
  * ***********************************************************
  */
-public class TaskExcecutionParser {
+public class TaskExecutionParser {
 
     private final ExecutorService executor ;
 
-    public TaskExcecutionParser(ExecutorService executor) {
+    public TaskExecutionParser(ExecutorService executor) {
         this.executor = executor;
     }
 
