@@ -10,7 +10,7 @@ import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.junit.Test;
 import org.snailgary.tika.TikaParser;
-import org.snailgary.tika.task.TaskExcecutionParser;
+import org.snailgary.tika.task.TaskExecutionParser;
 import org.snailgary.util.FileUtil;
 import org.xml.sax.SAXException;
 
@@ -55,10 +55,10 @@ public class ParseTest {
     @Test
     public void exceutionParse() throws ExecutionException, InterruptedException {
         Long start = System.currentTimeMillis();
-        //TaskExcecutionParser taskExcecutionParser = new TaskExcecutionParser(Executors.newFixedThreadPool(200));
-        TaskExcecutionParser taskExcecutionParser = new TaskExcecutionParser(Executors.newCachedThreadPool());
+        //TaskExecutionParser taskExecutionParser = new TaskExecutionParser(Executors.newFixedThreadPool(200));
+        TaskExecutionParser taskExecutionParser = new TaskExecutionParser(Executors.newCachedThreadPool());
 
-        taskExcecutionParser.parseFiles(FileUtil.getListFiles("C:\\Users\\snail\\Desktop\\temp\\parsetest"));
+        taskExecutionParser.parseFiles(FileUtil.getListFiles("C:\\Users\\snail\\Desktop\\temp\\parsetest"));
 
         Long end = System.currentTimeMillis();
 
