@@ -10,12 +10,15 @@ import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.junit.Test;
 import org.snailgary.tika.TikaParser;
+import org.snailgary.tika.task.TaskExcecutionParser;
 import org.snailgary.util.FileUtil;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
 /**
  * ***********************************************************
@@ -42,11 +45,25 @@ public class ParseTest {
     public void parseFilesTest() throws IOException, TikaException, SAXException {
         Long start = System.currentTimeMillis();
 
-        TikaParser.farseFilesInFolder("C:\\Users\\snail\\Desktop\\temp\\parsetest");
+        TikaParser.parseFilesInFolder("C:\\Users\\snail\\Desktop\\temp\\parsetest");
 
         Long end = System.currentTimeMillis();
 
-        System.out.println("耗时：" + (end - start));
+        System.out.println("普通耗时：" + (end - start));
+    }
+
+    @Test
+    public void exceutionParse() throws ExecutionException, InterruptedException {
+        Long start = System.currentTimeMillis();
+        //TaskExcecutionParser taskExcecutionParser = new TaskExcecutionParser(Executors.newFixedThreadPool(200));
+        TaskExcecutionParser taskExcecutionParser = new TaskExcecutionParser(Executors.newCachedThreadPool());
+
+        taskExcecutionParser.parseFiles(FileUtil.getListFiles("C:\\Users\\snail\\Desktop\\temp\\parsetest"));
+
+        Long end = System.currentTimeMillis();
+
+        System.out.println("并发耗时：" + (end - start));
+
     }
 
     @Test

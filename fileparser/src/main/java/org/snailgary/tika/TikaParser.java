@@ -38,22 +38,26 @@ public class TikaParser {
      * @param filePath
      * @return
      */
-    public static String parseSingleFile(String filePath) throws IOException, TikaException, SAXException {
+    public static String parseSingleFile(final String filePath) throws IOException, TikaException, SAXException {
         return parseFileToString(new File(filePath));
+    }
+
+    public static Map<String,String> parseFilesInFolder(final String folderPath) throws IOException, TikaException, SAXException {
+        List<File> files = FileUtil.getListFiles(folderPath);
+        return parseFilesToString(files);
     }
 
 
 
-
-    public static Map<String,String> farseFilesInFolder(String folderPath) throws IOException, TikaException, SAXException {
+    public static Map<String,String> parseFilesToString(final List<File> files) throws TikaException, IOException, SAXException {
         Map<String,String> map = new HashMap();
-        List<File> files = FileUtil.getListFiles(folderPath);
-        for(File file : files)
+        for(final File file : files)
             map.put(file.getName() + System.currentTimeMillis(), parseFileToString(file));
         return map;
     }
 
-    public static String parseFileToString(File file) throws IOException, TikaException, SAXException {
+    public static String parseFileToString(final File file) throws IOException, TikaException, SAXException {
+        Tika tika = new Tika();
         if(file.getName().toLowerCase().endsWith(".pdf")){
             return parsePdf(file);
         }
@@ -71,7 +75,7 @@ public class TikaParser {
                 .trim();
     }
 
-    private static String parsePdf(File pdfFile) throws IOException, TikaException, SAXException {
+    private static String parsePdf(final File pdfFile) throws IOException, TikaException, SAXException {
         //Tika默认是10*1024*1024，这里防止文件过大导致Tika报错
         BodyContentHandler handler = new BodyContentHandler(100*1024*1024);
 

@@ -35,6 +35,14 @@
             <version>${tika.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.bbn.poi.visio/ooxml-visio-schemas -->
+        <dependency>
+            <groupId>com.bbn.poi.visio</groupId>
+            <artifactId>ooxml-visio-schemas</artifactId>
+            <version>2011.1</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
         <dependency>
             <groupId>org.apache.tika</groupId>
