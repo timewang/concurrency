@@ -32,11 +32,7 @@ public class TaskExecutionParser {
 
         CompletionService<String> completionService = new ExecutorCompletionService<String>(this.executor);
         for(final File file : files){
-            completionService.submit(new Callable<String>() {
-                public String call() throws Exception {
-                    return TikaParser.parseFileToString(file);
-                }
-            });
+            completionService.submit(() -> TikaParser.parseFileToString(file));
         }
         for(int i = 0 , n = files.size() ; i < n ; i++){
             File file = files.get(i);
