@@ -59,9 +59,13 @@ public class TikaParser {
     public static String parseFileToString(final File file) throws IOException, TikaException, SAXException {
         Tika tika = new Tika();
         if(file.getName().toLowerCase().endsWith(".pdf")){
-            return parsePdf(file);
+            return scape(parsePdf(file));
         }
-        return tika.parseToString(file).replaceAll("\n", "").replaceAll("�", "")
+        return scape(tika.parseToString(file));
+    }
+
+    private static String scape(String s){
+        return s.replaceAll("\n", "").replaceAll("�", "")
                 .replaceAll("\t", "")
                 .replaceAll("<", "&lt;")
                 .replaceAll(">", " 	&gt;")
