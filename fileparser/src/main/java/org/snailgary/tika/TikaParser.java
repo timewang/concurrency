@@ -84,14 +84,15 @@ public class TikaParser {
         BodyContentHandler handler = new BodyContentHandler(100*1024*1024);
 
         Metadata metadata = new Metadata();
-        FileInputStream inputstream = new FileInputStream(pdfFile);
-        ParseContext pcontext = new ParseContext();
+        try(FileInputStream inputstream = new FileInputStream(pdfFile)){
+            ParseContext pcontext = new ParseContext();
 
-        // 解析PDF文档时应由超类AbstractParser的派生类PDFParser实现
-        PDFParser pdfparser = new PDFParser();
-        pdfparser.parse(inputstream, handler, metadata, pcontext);
+            // 解析PDF文档时应由超类AbstractParser的派生类PDFParser实现
+            PDFParser pdfparser = new PDFParser();
+            pdfparser.parse(inputstream, handler, metadata, pcontext);
 
-        return handler.toString();
+            return handler.toString();
+        }
     }
 
 }
