@@ -53,24 +53,24 @@ public class FileUtil {
      * @throws IOException
      */
     public static String getFileEncod(String filePpath) throws IOException {
-        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(filePpath));
-        int p = (bin.read() << 8) + bin.read();
-        String code;
-
-        switch (p) {
-            case 0xefbb:
-                code = "UTF-8";
-                break;
-            case 0xfffe:
-                code = "Unicode";
-                break;
-            case 0xfeff:
-                code = "UTF-16BE";
-                break;
-            default:
-                code = "GBK";
+        try(BufferedInputStream bin = new BufferedInputStream(new FileInputStream(filePpath))){
+            int p = (bin.read() << 8) + bin.read();
+            String code;
+            switch (p) {
+                case 0xefbb:
+                    code = "UTF-8";
+                    break;
+                case 0xfffe:
+                    code = "Unicode";
+                    break;
+                case 0xfeff:
+                    code = "UTF-16BE";
+                    break;
+                default:
+                    code = "GBK";
+            }
+            return code;
         }
-        return code;
     }
 
     /**
