@@ -3,7 +3,7 @@
  */
 package org.snailgary.util;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +42,33 @@ public class FileUtil {
             }
         }
         return files;
+    }
+
+    /**
+     * 获取文件编码格式
+     * @param filePpath
+     * @return
+     * @throws IOException
+     */
+    public static String getFileEncod(String filePpath) throws IOException {
+        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(filePpath));
+        int p = (bin.read() << 8) + bin.read();
+        String code = "GBK";
+
+        switch (p) {
+            case 0xefbb:
+                code = "UTF-8";
+                break;
+            case 0xfffe:
+                code = "Unicode";
+                break;
+            case 0xfeff:
+                code = "UTF-16BE";
+                break;
+            default:
+                code = "GBK";
+        }
+        return code;
     }
 
 }
