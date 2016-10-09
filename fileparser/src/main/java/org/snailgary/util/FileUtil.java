@@ -20,6 +20,7 @@ public class FileUtil {
 
     /**
      * 获取文件夹下所有的文件
+     *
      * @param obj
      * @return
      */
@@ -46,6 +47,7 @@ public class FileUtil {
 
     /**
      * 获取文件编码格式
+     *
      * @param filePpath
      * @return
      * @throws IOException
@@ -69,6 +71,24 @@ public class FileUtil {
                 code = "GBK";
         }
         return code;
+    }
+
+    /**
+     * 指定编码格式读取文件
+     *
+     * @param filePath:文件绝对路径
+     * @param encoding:文件编码
+     * @author wang zhong fu
+     */
+    public static String readFileContent(String filePath, String encoding) throws IOException {
+        File wordFile = new File(filePath);
+        Long filelength = wordFile.length();
+        byte[] filecontent = new byte[filelength.intValue()];
+        try (FileInputStream in = new FileInputStream(wordFile)) {
+            in.read(filecontent);
+            String wordsContent = new String(filecontent, encoding);
+            return wordsContent;
+        }
     }
 
 }
