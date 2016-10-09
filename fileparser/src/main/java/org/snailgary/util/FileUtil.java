@@ -53,7 +53,7 @@ public class FileUtil {
     public static String getFileEncod(String filePpath) throws IOException {
         BufferedInputStream bin = new BufferedInputStream(new FileInputStream(filePpath));
         int p = (bin.read() << 8) + bin.read();
-        String code = "GBK";
+        String code;
 
         switch (p) {
             case 0xefbb:
