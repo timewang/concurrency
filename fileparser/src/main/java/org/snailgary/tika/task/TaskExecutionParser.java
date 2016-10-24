@@ -32,6 +32,21 @@ public class TaskExecutionParser {
         for(final File file : files){
             completionService.submit(() -> TikaParser.parseFileToString(file));
         }
+       /* files.forEach(file -> {
+            Future<String> future = null;
+            try {
+                future = completionService.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                this.handleParseReult(file.getName(),future.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        });*/
         for(int i = 0 , n = files.size() ; i < n ; i++){
             File file = files.get(i);
             Future<String> future = completionService.take();
