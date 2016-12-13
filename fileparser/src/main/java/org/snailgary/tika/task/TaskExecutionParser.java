@@ -28,7 +28,7 @@ public class TaskExecutionParser {
 
     public void parseFiles(final List<File> files) throws ExecutionException, InterruptedException {
 
-        CompletionService<String> completionService = new ExecutorCompletionService<String>(this.executor);
+        CompletionService<String> completionService = new ExecutorCompletionService<>(this.executor);
         for(final File file : files){
             completionService.submit(() -> TikaParser.parseFileToString(file));
         }

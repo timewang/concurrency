@@ -34,7 +34,7 @@ public class ChannelTest {
             int bytesRead = inChannel.read(buf);
             while (bytesRead != -1) {
 
-                System.out.println("Read " + bytesRead);
+                System.out.println("Read ：" + bytesRead +" $$$$$$$$$");
                 buf.flip();
 
                 while(buf.hasRemaining()){
